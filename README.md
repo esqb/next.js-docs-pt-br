@@ -311,9 +311,9 @@ Em casos como esse, você pode escolher um dos itens abaixo:
 - Use Geração Estática com renderização do lado do Cliente: Você pode pular a pré-renderização de algumas partes da página e então usar o JavaScript do lado do cliente para populá-los. Para saber mais sobre essa abordagem, verifique a [documentação do Fetch de Dados](https://nextjs.org/docs/basic-features/data-fetching#fetching-data-on-the-client-side).
 - Use Renderização do Lado do Servidor: O Next.js pré-renderiza uma página emn cada requisição. Ela será mais lenta porque a página não pode ser amazenada em cache, mas a página pré-renderizada sempre estará atualizada. Nõs falaremos sobre essa abordagem logo abaixo.
 
-### Rendereização do lado do Leite
+### Renderização do lado do Leite
 
-CONTINUA
+CONTINUA em https://nextjs.org/docs/basic-features/pages#server-side-rendering
 
 
 
