@@ -144,22 +144,22 @@ Você também pode utilizar a Renderização do lado do Cliente em conjunto com 
 
 Exemplos:
 
-[Exemplo com WordPress](https://github.com/vercel/next.js/tree/canary/examples/cms-wordpress) ([Demo](https://next-blog-wordpress.vercel.app/))
-[Template Inicial para Blog usando arquivos markdown](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) ([Demo](https://next-blog-starter.vercel.app/))
-[Exemplo com DatoCMS](https://github.com/vercel/next.js/tree/canary/examples/cms-datocms) ([Demo](https://next-blog-datocms.vercel.app/))
-[Exemplo com TakeShape](https://github.com/vercel/next.js/tree/canary/examples/cms-takeshape) ([Demo](https://next-blog-takeshape.vercel.app/))
-[Exemplo com Sanity](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity) ([Demo](https://next-blog-sanity.vercel.app/))
-[Exemplo com Prismic](https://github.com/vercel/next.js/tree/canary/examples/cms-prismic) ([Demo](https://next-blog-prismic.vercel.app/))
-[Exemplo com Contentful](https://github.com/vercel/next.js/tree/canary/examples/cms-contentful) ([Demo](https://next-blog-contentful.vercel.app/))
-[Exemplo com Strapi](https://github.com/vercel/next.js/tree/canary/examples/cms-strapi) ([Demo](https://next-blog-strapi.vercel.app/))
-[Exemplo com Prepr](https://github.com/vercel/next.js/tree/canary/examples/cms-prepr) ([Demo](https://next-blog-prepr.vercel.app/))
-[Exemplo com Agility CMS]() ([Demo](https://next-blog-agilitycms.vercel.app/))
-[Exemplo com Cosmic](https://github.com/vercel/next.js/tree/canary/examples/cms-cosmic) ([Demo](https://next-blog-cosmic.vercel.app/))
-[Exemplo com ButterCMS](https://github.com/vercel/next.js/tree/canary/examples/cms-buttercms) ([Demo](https://next-blog-buttercms.vercel.app/))
-[Exemplo com Storyblok](https://github.com/vercel/next.js/tree/canary/examples/cms-storyblok) ([Demo](https://next-blog-storyblok.vercel.app/))
-[Exemplo com GraphCMS](https://github.com/vercel/next.js/tree/canary/examples/cms-graphcms) ([Demo](https://next-blog-graphcms.vercel.app/))
-[Exemplo com Kontent](https://github.com/vercel/next.js/tree/canary/examples/cms-kontent) ([Demo](https://next-blog-kontent.vercel.app/))
-[Demo com Static Tweet](https://static-tweet.vercel.app/)
+- [Exemplo com WordPress](https://github.com/vercel/next.js/tree/canary/examples/cms-wordpress) ([Demo](https://next-blog-wordpress.vercel.app/))
+- [Template Inicial para Blog usando arquivos markdown](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) ([Demo](https://next-blog-starter.vercel.app/))
+- [Exemplo com DatoCMS](https://github.com/vercel/next.js/tree/canary/examples/cms-datocms) ([Demo](https://next-blog-datocms.vercel.app/))
+- [Exemplo com TakeShape](https://github.com/vercel/next.js/tree/canary/examples/cms-takeshape) ([Demo](https://next-blog-takeshape.vercel.app/))
+- [Exemplo com Sanity](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity) ([Demo](https://next-blog-sanity.vercel.app/))
+- [Exemplo com Prismic](https://github.com/vercel/next.js/tree/canary/examples/cms-prismic) ([Demo](https://next-blog-prismic.vercel.app/))
+- [Exemplo com Contentful](https://github.com/vercel/next.js/tree/canary/examples/cms-contentful) ([Demo](https://next-blog-contentful.vercel.app/))
+- [Exemplo com Strapi](https://github.com/vercel/next.js/tree/canary/examples/cms-strapi) ([Demo](https://next-blog-strapi.vercel.app/))
+- [Exemplo com Prepr](https://github.com/vercel/next.js/tree/canary/examples/cms-prepr) ([Demo](https://next-blog-prepr.vercel.app/))
+- [Exemplo com Agility CMS]() ([Demo](https://next-blog-agilitycms.vercel.app/))
+- [Exemplo com Cosmic](https://github.com/vercel/next.js/tree/canary/examples/cms-cosmic) ([Demo](https://next-blog-cosmic.vercel.app/))
+- [Exemplo com ButterCMS](https://github.com/vercel/next.js/tree/canary/examples/cms-buttercms) ([Demo](https://next-blog-buttercms.vercel.app/))
+- [Exemplo com Storyblok](https://github.com/vercel/next.js/tree/canary/examples/cms-storyblok) ([Demo](https://next-blog-storyblok.vercel.app/))
+- [Exemplo com GraphCMS](https://github.com/vercel/next.js/tree/canary/examples/cms-graphcms) ([Demo](https://next-blog-graphcms.vercel.app/))
+- [Exemplo com Kontent](https://github.com/vercel/next.js/tree/canary/examples/cms-kontent) ([Demo](https://next-blog-kontent.vercel.app/))
+- [Demo com Static Tweet](https://static-tweet.vercel.app/)
 
 Se uma página utiliza `Geração Estática`, a página HTML é gerada em `build time`. Isso significa que em produção, a página HTML é gerada quando você executa o comando `next build`. Esse HTML será então reutilizado em cada requisição. Ele pode ser armazenado em cache por uma CDN.
 
