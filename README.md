@@ -119,7 +119,7 @@ export default About
 
 O Next.js dá suporte a páginas com rotas dinâmicas. Por exemplo, se você criar um arquivo chamado `pages/posts/[id].js`, então página referente a ele será acessível em `posts/1`, `posts/2`, etc.
 
-Para aprender mais sobre roteamento dinâmico, verifique a [documentação de Roteamento Dinâmico](https://nextjs.org/docs/routing/dynamic-routes).
+Para saber mais sobre roteamento dinâmico, verifique a [documentação de Roteamento Dinâmico](https://nextjs.org/docs/routing/dynamic-routes).
 
 ## Pré-renderização
 
@@ -190,17 +190,130 @@ Algumas páginas necessitam fazer o fetch de dados externos para pré-renderizar
 
 Exemplo: A página do seu blog pode precisar fazer o fetch da lista de posts provenientes de um CMS (sistema gerenciador de conteúdo).
 
-CONTINUAR EM:
-https://nextjs.org/docs/basic-features/pages#scenario-1-your-page-content-depends-on-external-data
+```JavaScript
+// TODO: Precisa fazer o fetch dos `posts` (chamando algum endpoint da API)
+//       antes que está página seja pré-renderizada.
+function Blog({ posts }) {
+  return (
+    <ul>
+      {posts.map((posts) => (
+        <li>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
 
+export default Blog
+```
+Para fazer o fetch desses dados em pré-renderização, o Next.js permite que você exportar uma função `async` chamada `getStaticProps` do mesmo arquivo. Essa função é chamada em build time e permite que você passe os dados por meio dos `props` da página em pré-renderização.
 
+```JavaScript
+function Blog({ posts }) {
+  // Renderizar posts...
+}
 
+// Essa função é chamada em build time
+export async function getStaticProps() {
+  // Faz a requisição a um endpoint de uma API externa para obter os posts
+  const res = await fetch('https://.../posts')
+  const posts = await res.json()
 
+  // Retornando { props: { posts } }, o componente Blog
+  // receberá `posts` como uma prop em build time
+  return {
+    props: {
+      posts,
+    },
+  }
+}
 
+export default Blog
 
+```
+Para saber mais sobre como `getStaticProps` funciona, verifique a [documentação do Fetch de Dados](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation).
 
+#### Cenário 2: Os paths da sua página dependem de dados externos
 
+O Next.js permite que você crie páginas com rotas dinâmicas. Por exemplo, vocẽ pode criar um arquivo chamado `pages/posts/[id].js` para mostrar um único post do blog baseado no `id`. Isso permite você mostrar um post do blog com o `id: 1` quando você acessa `posts/1`.
 
+Para saber mais sobre roteamento dinâmico, verifique a [documentação de Roteamento Dinâmico](https://nextjs.org/docs/routing/dynamic-routes).
+
+Entretanto, qual `id` vocẽ quer pré-renderizar em build time pode depender de dados externos.
+
+Exemplo: suponha que você adicionou apenas um post no blog (com `id: 1`) ao banco de dados. Neste caso, você só irá querer pré-renderizar `posts/1` em build time.
+
+Mais tarde, você pode adicionar um segundo post com `id: 2`. Então você também irá querer pré-renderizar `posts/2`.
+
+Dessa forma, os paths que são pré-renderizados dependem de dados externos. Para resolver isso, o Next.js permite que você exporte uma função `async` chamada `getStaticPaths` à partir de uma página dinâmica (`pages/posts/[id].js` neste caso). Essa função é chamda em build time e permite que você especifique quais os paths que você quer pré-renderizar.
+
+```JavaScript
+// Essa função é chamada em build time
+export async function getStaticPaths() {
+  // Faz a requisição a um endpoint de uma API externa para obter os posts
+  const res = await fetch('https://.../posts')
+  const posts = await res.json()
+
+  // Obtém os paths que nós queremos pré-renderizar baseados nos posts
+  const paths = posts.map((post) => ({
+    params: { id: post.id },
+  }))
+
+  // Iremos pré-renderizar apenas esses paths em build time
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false }
+}
+
+```
+Também em `pages/posts/[id].js`, você precisa exportar `getStaticProps`, assim você pode fazer o fetch dos dados sobre o post com esse `id` e usar para pré-renderizar a página:
+
+```JavaScript
+function Post({ post }) {
+  // Renderizar post...
+}
+
+export async function getStaticPaths() {
+  // ...
+}
+
+// Essa função também é chamada em build time
+export async function getStaticProps({ params }) {
+  // params contém o `id` do post.
+  // Se a rota é `/posts/1`, então params.id é 1
+  const res = await fetch(`https://.../posts/${params.id}`)
+  const post = await res.json()
+
+  // Passa os dados do post para a p
+  return { props: { post } }
+}
+
+export default Post
+
+```
+Para saber mais sobre como `getStaticPaths` funciona, verifique a [documentação do Fetch de Dados](https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation).
+
+### When should I use Geração Estática?
+
+Nós recomendamos a utilização de Geração Estática (com ou sem dados) sempre que possível porque sua página pode ser construída uma única vez e servida pelo CDN, o que torna muito mais rápido do que ter uma página renderizada pelo servidor em cada requisição.
+
+Você pode usar Geração Estática em muitos tipos de páginas, incluindo:
+
+- Páginas de Marketing
+- Posts de Blogs
+- Listagem de produtos de E-commerce
+- Ajuda e documentação
+
+Você deve se perguntar: "Eu posso pré-renderizar essa página antes da requisição do cliente?" Se a resposta for sim, então você deve escolher Geração Estática.
+
+Por outro lado, Geração Estática não é uma oba ideia se você não pode pré-renderizar a página antes da requisição do usuário. Talvez sua página exiba dados atualizados com frequência, e a página de conteúdo muda em cada requisição.
+
+Em casos como esse, você pode escolher um dos itens abaixo:
+
+- Use Geração Estática com renderização do lado do Cliente: Você pode pular a pré-renderização de algumas partes da página e então usar o JavaScript do lado do cliente para populá-los. Para saber mais sobre essa abordagem, verifique a [documentação do Fetch de Dados](https://nextjs.org/docs/basic-features/data-fetching#fetching-data-on-the-client-side).
+- Use Renderização do Lado do Servidor: O Next.js pré-renderiza uma página emn cada requisição. Ela será mais lenta porque a página não pode ser amazenada em cache, mas a página pré-renderizada sempre estará atualizada. Nõs falaremos sobre essa abordagem logo abaixo.
+
+### Rendereização do lado do Leite
+
+CONTINUA
 
 
 
